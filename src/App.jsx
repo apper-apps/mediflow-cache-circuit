@@ -21,7 +21,8 @@ import PromptPassword from '@/components/pages/PromptPassword';
 // Create auth context
 export const AuthContext = createContext(null);
 
-function App() {
+// AuthWrapper component to handle authentication setup inside Router context
+function AuthWrapper() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isInitialized, setIsInitialized] = useState(false);
@@ -99,7 +100,7 @@ function App() {
         console.error("Authentication failed:", error);
       }
     });
-  }, []);
+  }, [navigate, dispatch]);
   
   // Authentication methods to share via context
   const authMethods = {
@@ -123,44 +124,50 @@ function App() {
   
   return (
     <AuthContext.Provider value={authMethods}>
-      <BrowserRouter>
-        {isAuthenticated ? (
-          <Layout>
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/patients" element={<Patients />} />
-              <Route path="/appointments" element={<Appointments />} />
-              <Route path="/doctors" element={<Doctors />} />
-              <Route path="/departments" element={<Departments />} />
-            </Routes>
-          </Layout>
-        ) : (
+      {isAuthenticated ? (
+        <Layout>
           <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/callback" element={<Callback />} />
-            <Route path="/error" element={<ErrorPage />} />
-            <Route path="/prompt-password/:appId/:emailAddress/:provider" element={<PromptPassword />} />
-            <Route path="/reset-password/:appId/:fields" element={<ResetPassword />} />
-            <Route path="*" element={<Login />} />
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/patients" element={<Patients />} />
+            <Route path="/appointments" element={<Appointments />} />
+            <Route path="/doctors" element={<Doctors />} />
+            <Route path="/departments" element={<Departments />} />
           </Routes>
-        )}
-        
-        <ToastContainer
-          position="top-right"
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-          style={{ zIndex: 9999 }}
-        />
-      </BrowserRouter>
+        </Layout>
+      ) : (
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/callback" element={<Callback />} />
+          <Route path="/error" element={<ErrorPage />} />
+          <Route path="/prompt-password/:appId/:emailAddress/:provider" element={<PromptPassword />} />
+          <Route path="/reset-password/:appId/:fields" element={<ResetPassword />} />
+          <Route path="*" element={<Login />} />
+        </Routes>
+      )}
+      
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        style={{ zIndex: 9999 }}
+      />
     </AuthContext.Provider>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AuthWrapper />
+    </BrowserRouter>
   );
 }
 
