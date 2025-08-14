@@ -178,6 +178,7 @@ variant="primary"
                         <p className="text-gray-600 text-sm">
                           {department.floor_c || department.floor}
                         </p>
+                      </div>
                     </div>
 
                     <div className="space-y-4 flex-1">
