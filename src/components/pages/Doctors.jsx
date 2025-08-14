@@ -42,8 +42,8 @@ const Doctors = () => {
     return department?.name || "Unknown Department";
   };
 
-  const getAvailabilityStatus = (availability) => {
-    const today = new Date().toLocaleDateString("en-US", { weekday: "monday" }).toLowerCase();
+const getAvailabilityStatus = (availability) => {
+    const today = new Date().toLocaleDateString("en-US", { weekday: "long" }).toLowerCase();
     const todaySchedule = availability[today];
     
     if (todaySchedule && todaySchedule.length > 0) {
