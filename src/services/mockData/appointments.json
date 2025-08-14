@@ -1,0 +1,122 @@
+[
+  {
+    "Id": 1,
+    "patientId": "1",
+    "doctorId": "1",
+    "departmentId": "1",
+    "date": "2024-12-16",
+    "time": "09:00",
+    "duration": 30,
+    "status": "scheduled",
+    "reason": "Annual checkup",
+    "notes": "Patient reports feeling well"
+  },
+  {
+    "Id": 2,
+    "patientId": "2",
+    "doctorId": "2",
+    "departmentId": "2",
+    "date": "2024-12-16",
+    "time": "10:00",
+    "duration": 45,
+    "status": "in-progress",
+    "reason": "Chest pain evaluation",
+    "notes": "Follow-up for previous EKG results"
+  },
+  {
+    "Id": 3,
+    "patientId": "3",
+    "doctorId": "3",
+    "departmentId": "3",
+    "date": "2024-12-16",
+    "time": "11:30",
+    "duration": 60,
+    "status": "completed",
+    "reason": "Physical therapy assessment",
+    "notes": "Initial evaluation completed"
+  },
+  {
+    "Id": 4,
+    "patientId": "4",
+    "doctorId": "4",
+    "departmentId": "4",
+    "date": "2024-12-16",
+    "time": "14:00",
+    "duration": 30,
+    "status": "scheduled",
+    "reason": "Eye examination",
+    "notes": "Annual vision screening"
+  },
+  {
+    "Id": 5,
+    "patientId": "5",
+    "doctorId": "5",
+    "departmentId": "5",
+    "date": "2024-12-16",
+    "time": "15:30",
+    "duration": 45,
+    "status": "scheduled",
+    "reason": "Skin lesion check",
+    "notes": "Follow-up on mole changes"
+  },
+  {
+    "Id": 6,
+    "patientId": "1",
+    "doctorId": "1",
+    "departmentId": "1",
+    "date": "2024-12-17",
+    "time": "09:30",
+    "duration": 30,
+    "status": "scheduled",
+    "reason": "Blood pressure check",
+    "notes": "Monthly monitoring"
+  },
+  {
+    "Id": 7,
+    "patientId": "6",
+    "doctorId": "2",
+    "departmentId": "2",
+    "date": "2024-12-17",
+    "time": "11:00",
+    "duration": 45,
+    "status": "scheduled",
+    "reason": "Heart palpitation consultation",
+    "notes": "New patient concern"
+  },
+  {
+    "Id": 8,
+    "patientId": "7",
+    "doctorId": "3",
+    "departmentId": "3",
+    "date": "2024-12-17",
+    "time": "13:00",
+    "duration": 60,
+    "status": "scheduled",
+    "reason": "Post-surgery rehabilitation",
+    "notes": "Week 2 of recovery plan"
+  },
+  {
+    "Id": 9,
+    "patientId": "8",
+    "doctorId": "1",
+    "departmentId": "1",
+    "date": "2024-12-18",
+    "time": "10:00",
+    "duration": 30,
+    "status": "scheduled",
+    "reason": "Diabetes management",
+    "notes": "Quarterly check-in"
+  },
+  {
+    "Id": 10,
+    "patientId": "2",
+    "doctorId": "4",
+    "departmentId": "4",
+    "date": "2024-12-18",
+    "time": "14:30",
+    "duration": 30,
+    "status": "scheduled",
+    "reason": "Vision screening",
+    "notes": "Referred by primary care"
+  }
+]

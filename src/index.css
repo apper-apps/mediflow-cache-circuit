@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import 'react-toastify/dist/ReactToastify.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  body {
+    font-feature-settings: 'cv11', 'ss01';
+    font-variation-settings: 'opsz' 32;
+  }
+}
+
+/* Toast Overrides */
+.Toastify__toast {
+  @apply !rounded-lg !shadow-lg !font-medium;
+  min-height: 56px;
+}
+
+.Toastify__toast--success {
+  @apply !bg-white !text-success border !border-success/20;
+}
+
+.Toastify__toast--error {
+  @apply !bg-white !text-error border !border-error/20;
+}
+
+.Toastify__toast--info {
+  @apply !bg-white !text-info border !border-info/20;
+}
+
+.Toastify__toast--warning {
+  @apply !bg-white !text-warning border !border-warning/20;
+}
+
+.Toastify__progress-bar {
+  @apply !bg-current !opacity-20;
+}
+
+.Toastify__toast-container {
+  @apply !w-auto !max-w-md;
+}

@@ -1,0 +1,77 @@
+[
+  {
+    "Id": 1,
+    "name": "Dr. Sarah Mitchell",
+    "specialization": "Internal Medicine",
+    "departmentId": "1",
+    "availability": {
+      "monday": ["09:00-12:00", "14:00-17:00"],
+      "tuesday": ["09:00-12:00", "14:00-17:00"],
+      "wednesday": ["09:00-12:00"],
+      "thursday": ["09:00-12:00", "14:00-17:00"],
+      "friday": ["09:00-12:00", "14:00-16:00"]
+    },
+    "phone": "(555) 101-2345",
+    "email": "s.mitchell@hospital.com"
+  },
+  {
+    "Id": 2,
+    "name": "Dr. Robert Kim",
+    "specialization": "Cardiology",
+    "departmentId": "2",
+    "availability": {
+      "monday": ["08:00-11:00", "13:00-16:00"],
+      "tuesday": ["08:00-11:00", "13:00-16:00"],
+      "wednesday": ["08:00-11:00", "13:00-16:00"],
+      "thursday": ["08:00-11:00"],
+      "friday": ["08:00-11:00", "13:00-15:00"]
+    },
+    "phone": "(555) 201-3456",
+    "email": "r.kim@hospital.com"
+  },
+  {
+    "Id": 3,
+    "name": "Dr. Maria Gonzalez",
+    "specialization": "Physical Therapy",
+    "departmentId": "3",
+    "availability": {
+      "monday": ["08:30-12:00", "13:30-17:30"],
+      "tuesday": ["08:30-12:00", "13:30-17:30"],
+      "wednesday": ["08:30-12:00", "13:30-17:30"],
+      "thursday": ["08:30-12:00", "13:30-17:30"],
+      "friday": ["08:30-12:00", "13:30-16:00"]
+    },
+    "phone": "(555) 301-4567",
+    "email": "m.gonzalez@hospital.com"
+  },
+  {
+    "Id": 4,
+    "name": "Dr. James Parker",
+    "specialization": "Ophthalmology",
+    "departmentId": "4",
+    "availability": {
+      "monday": ["09:30-12:30", "14:30-17:30"],
+      "tuesday": ["09:30-12:30", "14:30-17:30"],
+      "wednesday": ["09:30-12:30"],
+      "thursday": ["09:30-12:30", "14:30-17:30"],
+      "friday": ["09:30-12:30", "14:30-16:30"]
+    },
+    "phone": "(555) 401-5678",
+    "email": "j.parker@hospital.com"
+  },
+  {
+    "Id": 5,
+    "name": "Dr. Amanda Foster",
+    "specialization": "Dermatology",
+    "departmentId": "5",
+    "availability": {
+      "monday": ["10:00-13:00", "15:00-18:00"],
+      "tuesday": ["10:00-13:00", "15:00-18:00"],
+      "wednesday": ["10:00-13:00", "15:00-18:00"],
+      "thursday": ["10:00-13:00"],
+      "friday": ["10:00-13:00", "15:00-17:00"]
+    },
+    "phone": "(555) 501-6789",
+    "email": "a.foster@hospital.com"
+  }
+]
