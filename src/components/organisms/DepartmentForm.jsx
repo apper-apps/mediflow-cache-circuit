@@ -8,13 +8,15 @@ import ApperIcon from '@/components/ApperIcon';
 import { departmentService } from '@/services/api/departmentService';
 
 const DepartmentForm = ({ department, onSuccess, onCancel }) => {
-  const [formData, setFormData] = useState({
-    name: department?.name || '',
-    description: department?.description || '',
-    head: department?.head || '',
-    phone: department?.phone || '',
-    email: department?.email || '',
-    location: department?.location || ''
+const [formData, setFormData] = useState({
+    name: department?.Name || department?.name || '',
+    description: department?.description_c || department?.description || '',
+    head: department?.head_c || department?.head || '',
+    phone: department?.phone_c || department?.phone || '',
+    email: department?.email_c || department?.email || '',
+    location: department?.location_c || department?.location || '',
+    floor: department?.floor_c || department?.floor || '',
+    contactNumber: department?.contact_number_c || department?.contactNumber || ''
   });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -111,7 +113,7 @@ if (formData.phone && !/^\+?[\d\s\-()]+$/.test(formData.phone)) {
 
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <FormField
+<FormField
               label="Department Name"
               value={formData.name}
               onChange={handleChange('name')}
@@ -152,6 +154,22 @@ if (formData.phone && !/^\+?[\d\s\-()]+$/.test(formData.phone)) {
               onChange={handleChange('location')}
               error={errors.location}
               placeholder="Enter location"
+            />
+
+            <FormField
+              label="Floor"
+              value={formData.floor}
+              onChange={handleChange('floor')}
+              error={errors.floor}
+              placeholder="Enter floor"
+            />
+
+            <FormField
+              label="Contact Number"
+              value={formData.contactNumber}
+              onChange={handleChange('contactNumber')}
+              error={errors.contactNumber}
+              placeholder="Enter contact number"
             />
           </div>
 

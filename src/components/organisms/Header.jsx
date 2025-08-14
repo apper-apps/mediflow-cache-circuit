@@ -1,7 +1,11 @@
 import { motion } from "framer-motion";
+import React, { useContext } from "react";
+import { AuthContext } from "../../App";
 import ApperIcon from "@/components/ApperIcon";
 
 const Header = ({ title, subtitle, children }) => {
+  const { logout } = useContext(AuthContext);
+
   return (
     <motion.header 
       className="bg-white border-b border-gray-200 px-6 py-6"
@@ -17,7 +21,7 @@ const Header = ({ title, subtitle, children }) => {
           )}
         </div>
         
-<div className="flex items-center gap-4">
+        <div className="flex items-center gap-4">
           {children}
           
           <div className="flex items-center gap-3 pl-4 border-l border-gray-200">
@@ -45,6 +49,16 @@ const Header = ({ title, subtitle, children }) => {
               whileTap={{ scale: 0.95 }}
             >
               <ApperIcon name="Settings" className="w-5 h-5" />
+            </motion.button>
+            
+            <motion.button
+              className="p-2 rounded-lg text-red-500 hover:text-red-700 hover:bg-red-50 transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={logout}
+              title="Logout"
+            >
+              <ApperIcon name="LogOut" className="w-5 h-5" />
             </motion.button>
           </div>
         </div>

@@ -59,14 +59,20 @@ const AppointmentCalendar = ({ onAppointmentSelect, onAddAppointment }) => {
     }
   };
 
-  const getPatientName = (patientId) => {
+const getPatientName = (patientId) => {
+    if (typeof patientId === 'object' && patientId?.Name) {
+      return patientId.Name;
+    }
     const patient = patients.find(p => p.Id.toString() === patientId.toString());
-    return patient?.name || "Unknown Patient";
+    return patient?.Name || patient?.name || "Unknown Patient";
   };
 
   const getDoctorName = (doctorId) => {
+    if (typeof doctorId === 'object' && doctorId?.Name) {
+      return doctorId.Name;
+    }
     const doctor = doctors.find(d => d.Id.toString() === doctorId.toString());
-    return doctor?.name || "Unknown Doctor";
+    return doctor?.Name || doctor?.name || "Unknown Doctor";
   };
 
   const getFilteredAppointments = () => {
@@ -203,31 +209,31 @@ const AppointmentCalendar = ({ onAppointmentSelect, onAddAppointment }) => {
                       </div>
                       
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-3 mb-2">
+<div className="flex items-center gap-3 mb-2">
                           <h3 className="text-lg font-semibold text-gray-900">
-                            {appointment.time}
+                            {appointment.time_c || appointment.time}
                           </h3>
-                          <StatusBadge status={appointment.status} />
+                          <StatusBadge status={appointment.status_c || appointment.status} />
                         </div>
                         
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-gray-600">
                           <div className="flex items-center gap-2">
                             <ApperIcon name="User" className="w-4 h-4 text-gray-400" />
-                            {getPatientName(appointment.patientId)}
+                            {getPatientName(appointment.patient_id_c || appointment.patientId)}
                           </div>
                           <div className="flex items-center gap-2">
                             <ApperIcon name="UserCog" className="w-4 h-4 text-gray-400" />
-                            {getDoctorName(appointment.doctorId)}
+                            {getDoctorName(appointment.doctor_id_c || appointment.doctorId)}
                           </div>
                         </div>
 
-                        <div className="mt-2">
+<div className="mt-2">
                           <p className="text-sm font-medium text-gray-700">
-                            {appointment.reason}
+                            {appointment.reason_c || appointment.reason}
                           </p>
-                          {appointment.notes && (
+                          {(appointment.notes_c || appointment.notes) && (
                             <p className="text-sm text-gray-500 mt-1">
-                              {appointment.notes}
+                              {appointment.notes_c || appointment.notes}
                             </p>
                           )}
                         </div>
@@ -235,7 +241,7 @@ const AppointmentCalendar = ({ onAppointmentSelect, onAddAppointment }) => {
                     </div>
 
                     <div className="flex items-center gap-2 ml-4">
-                      {appointment.status === "scheduled" && (
+{(appointment.status_c || appointment.status) === "scheduled" && (
                         <Button
                           variant="warning"
                           size="sm"
@@ -245,7 +251,7 @@ const AppointmentCalendar = ({ onAppointmentSelect, onAddAppointment }) => {
                         </Button>
                       )}
                       
-                      {appointment.status === "in-progress" && (
+                      {(appointment.status_c || appointment.status) === "in-progress" && (
                         <Button
                           variant="success"
                           size="sm"

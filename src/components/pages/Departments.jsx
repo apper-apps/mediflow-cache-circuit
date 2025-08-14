@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import Header from "@/components/organisms/Header";
-import Card from "@/components/atoms/Card";
-import Button from "@/components/atoms/Button";
+import { departmentService } from "@/services/api/departmentService";
+import { doctorService } from "@/services/api/doctorService";
 import ApperIcon from "@/components/ApperIcon";
+import DepartmentForm from "@/components/organisms/DepartmentForm";
+import Header from "@/components/organisms/Header";
 import Loading from "@/components/ui/Loading";
 import Error from "@/components/ui/Error";
 import Empty from "@/components/ui/Empty";
-import DepartmentForm from "@/components/organisms/DepartmentForm";
-import { departmentService } from "@/services/api/departmentService";
-import { doctorService } from "@/services/api/doctorService";
-const Departments = () => {
+import Button from "@/components/atoms/Button";
+import Card from "@/components/atoms/Card";
+const DepartmentsPage = () => {
   const [departments, setDepartments] = useState([]);
   const [doctors, setDoctors] = useState([]);
 const [loading, setLoading] = useState(true);
@@ -35,12 +35,18 @@ const [loading, setLoading] = useState(true);
     }
   };
 
-  const getDoctorCount = (departmentId) => {
-    return doctors.filter(doctor => doctor.departmentId === departmentId.toString()).length;
+const getDoctorCount = (departmentId) => {
+    return doctors.filter(doctor => 
+      (doctor.department_id_c?.Id || doctor.departmentId) === departmentId.toString() ||
+      (doctor.department_id_c?.Id || doctor.departmentId) === departmentId
+    ).length;
   };
 
   const getDepartmentDoctors = (departmentId) => {
-    return doctors.filter(doctor => doctor.departmentId === departmentId.toString());
+    return doctors.filter(doctor => 
+      (doctor.department_id_c?.Id || doctor.departmentId) === departmentId.toString() ||
+      (doctor.department_id_c?.Id || doctor.departmentId) === departmentId
+    );
   };
 
   useEffect(() => {
@@ -166,25 +172,23 @@ variant="primary"
                         <ApperIcon name="Building2" className="w-6 h-6 text-accent" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-lg font-semibold text-gray-900">
-                          {department.name}
+<h3 className="text-lg font-semibold text-gray-900">
+                          {department.Name || department.name}
                         </h3>
                         <p className="text-gray-600 text-sm">
-                          {department.floor}
+                          {department.floor_c || department.floor}
                         </p>
-                      </div>
                     </div>
 
                     <div className="space-y-4 flex-1">
                       <div className="space-y-3">
                         <div className="flex items-center gap-2 text-sm">
-                          <ApperIcon name="UserCog" className="w-4 h-4 text-gray-400" />
-                          <span className="text-gray-600">Head: {department.head}</span>
+<span className="text-gray-600">Head: {department.head_c || department.head}</span>
                         </div>
                         
                         <div className="flex items-center gap-2 text-sm">
                           <ApperIcon name="Phone" className="w-4 h-4 text-gray-400" />
-                          <span className="text-gray-600">{department.contactNumber}</span>
+                          <span className="text-gray-600">{department.contact_number_c || department.contactNumber}</span>
                         </div>
 
                         <div className="flex items-center gap-2 text-sm">
@@ -201,8 +205,8 @@ variant="primary"
                           <div className="space-y-1">
                             {departmentDoctors.map((doctor) => (
                               <div key={doctor.Id} className="text-sm text-gray-600">
-                                <span className="font-medium">{doctor.name}</span>
-                                <span className="text-gray-500"> - {doctor.specialization}</span>
+<span className="font-medium">{doctor.Name || doctor.name}</span>
+                                <span className="text-gray-500"> - {doctor.specialization_c || doctor.specialization}</span>
                               </div>
                             ))}
                           </div>
@@ -235,4 +239,4 @@ variant="primary"
   );
 };
 
-export default Departments;
+export default DepartmentsPage;

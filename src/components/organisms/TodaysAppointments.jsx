@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
-import Card from "@/components/atoms/Card";
-import Button from "@/components/atoms/Button";
+import { appointmentService } from "@/services/api/appointmentService";
+import { patientService } from "@/services/api/patientService";
+import { doctorService } from "@/services/api/doctorService";
 import ApperIcon from "@/components/ApperIcon";
 import StatusBadge from "@/components/molecules/StatusBadge";
 import Loading from "@/components/ui/Loading";
 import Error from "@/components/ui/Error";
 import Empty from "@/components/ui/Empty";
-import { appointmentService } from "@/services/api/appointmentService";
-import { patientService } from "@/services/api/patientService";
-import { doctorService } from "@/services/api/doctorService";
+import Button from "@/components/atoms/Button";
+import Card from "@/components/atoms/Card";
 
 const TodaysAppointments = ({ onAppointmentSelect }) => {
   const [appointments, setAppointments] = useState([]);
@@ -56,14 +56,20 @@ const TodaysAppointments = ({ onAppointmentSelect }) => {
     }
   };
 
-  const getPatientName = (patientId) => {
+const getPatientName = (patientId) => {
+    if (typeof patientId === 'object' && patientId?.Name) {
+      return patientId.Name;
+    }
     const patient = patients.find(p => p.Id.toString() === patientId.toString());
-    return patient?.name || "Unknown Patient";
+    return patient?.Name || patient?.name || "Unknown Patient";
   };
 
   const getDoctorName = (doctorId) => {
+    if (typeof doctorId === 'object' && doctorId?.Name) {
+      return doctorId.Name;
+    }
     const doctor = doctors.find(d => d.Id.toString() === doctorId.toString());
-    return doctor?.name || "Unknown Doctor";
+    return doctor?.Name || doctor?.name || "Unknown Doctor";
   };
 
   useEffect(() => {
@@ -124,33 +130,33 @@ const TodaysAppointments = ({ onAppointmentSelect }) => {
           {appointments
             .sort((a, b) => a.time.localeCompare(b.time))
             .map((appointment, index) => (
-              <motion.div
+<motion.div
                 key={appointment.Id}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.1 }}
                 className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
               >
-                <div className="flex items-center gap-4 flex-1">
+                <div className="flex items-center gap-4">
                   <div className="text-lg font-semibold text-primary min-w-[4rem]">
-                    {appointment.time}
+                    {appointment.time_c || appointment.time}
                   </div>
                   
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <p className="font-medium text-gray-900 truncate">
-                        {getPatientName(appointment.patientId)}
+                        {getPatientName(appointment.patient_id_c || appointment.patientId)}
                       </p>
-                      <StatusBadge status={appointment.status} />
+                      <StatusBadge status={appointment.status_c || appointment.status} />
                     </div>
                     <p className="text-sm text-gray-600 truncate">
-                      {getDoctorName(appointment.doctorId)} • {appointment.reason}
+                      {getDoctorName(appointment.doctor_id_c || appointment.doctorId)} • {appointment.reason_c || appointment.reason}
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-2">
-                  {appointment.status === "scheduled" && (
+                  {(appointment.status_c || appointment.status) === "scheduled" && (
                     <Button
                       variant="warning"
                       size="sm"
@@ -160,7 +166,7 @@ const TodaysAppointments = ({ onAppointmentSelect }) => {
                     </Button>
                   )}
                   
-                  {appointment.status === "in-progress" && (
+                  {(appointment.status_c || appointment.status) === "in-progress" && (
                     <Button
                       variant="success"
                       size="sm"

@@ -37,12 +37,34 @@ const Doctors = () => {
     }
   };
 
-  const getDepartmentName = (departmentId) => {
+const getDepartmentName = (departmentId) => {
+    if (typeof departmentId === 'object' && departmentId?.Name) {
+      return departmentId.Name;
+    }
     const department = departments.find(d => d.Id.toString() === departmentId.toString());
-    return department?.name || "Unknown Department";
+    return department?.Name || department?.name || "Unknown Department";
   };
 
-const getAvailabilityStatus = (availability) => {
+const getAvailabilityStatus = (availability_c) => {
+    if (!availability_c) {
+      return {
+        status: "No Schedule",
+        variant: "secondary",
+        schedule: null
+      };
+    }
+    
+    let availability;
+    try {
+      availability = typeof availability_c === 'string' ? JSON.parse(availability_c) : availability_c;
+    } catch (e) {
+      return {
+        status: "Schedule Error",
+        variant: "secondary", 
+        schedule: null
+      };
+    }
+    
     const today = new Date().toLocaleDateString("en-US", { weekday: "long" }).toLowerCase();
     const todaySchedule = availability[today];
     
@@ -65,10 +87,10 @@ const getAvailabilityStatus = (availability) => {
     setSearchQuery(query);
   };
 
-  const filteredDoctors = doctors.filter(doctor => 
+const filteredDoctors = doctors.filter(doctor => 
     !searchQuery || 
-    doctor.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    doctor.specialization.toLowerCase().includes(searchQuery.toLowerCase())
+    (doctor.Name || doctor.name || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (doctor.specialization_c || doctor.specialization || '').toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   useEffect(() => {
@@ -148,8 +170,8 @@ const getAvailabilityStatus = (availability) => {
           />
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredDoctors.map((doctor, index) => {
-              const availability = getAvailabilityStatus(doctor.availability || {});
+{filteredDoctors.map((doctor, index) => {
+              const availability = getAvailabilityStatus(doctor.availability_c || doctor.availability);
               
               return (
                 <motion.div
@@ -166,13 +188,13 @@ const getAvailabilityStatus = (availability) => {
                         </div>
                         <div className="flex-1 min-w-0">
                           <h3 className="text-lg font-semibold text-gray-900 truncate">
-                            {doctor.name}
+                            {doctor.Name || doctor.name}
                           </h3>
                           <p className="text-primary font-medium text-sm">
-                            {doctor.specialization}
+                            {doctor.specialization_c || doctor.specialization}
                           </p>
                           <p className="text-gray-600 text-sm">
-                            {getDepartmentName(doctor.departmentId)}
+                            {getDepartmentName(doctor.department_id_c || doctor.departmentId)}
                           </p>
                         </div>
                       </div>
@@ -180,12 +202,12 @@ const getAvailabilityStatus = (availability) => {
                       <div className="space-y-3 flex-1">
                         <div className="flex items-center gap-2 text-sm">
                           <ApperIcon name="Phone" className="w-4 h-4 text-gray-400" />
-                          <span className="text-gray-600">{doctor.phone}</span>
+                          <span className="text-gray-600">{doctor.phone_c || doctor.phone}</span>
                         </div>
                         
                         <div className="flex items-center gap-2 text-sm">
                           <ApperIcon name="Mail" className="w-4 h-4 text-gray-400" />
-                          <span className="text-gray-600 truncate">{doctor.email}</span>
+                          <span className="text-gray-600 truncate">{doctor.email_c || doctor.email}</span>
                         </div>
 
                         <div className="pt-3 border-t border-gray-100">
