@@ -7,14 +7,16 @@ import ApperIcon from "@/components/ApperIcon";
 import Loading from "@/components/ui/Loading";
 import Error from "@/components/ui/Error";
 import Empty from "@/components/ui/Empty";
+import DepartmentForm from "@/components/organisms/DepartmentForm";
 import { departmentService } from "@/services/api/departmentService";
 import { doctorService } from "@/services/api/doctorService";
 const Departments = () => {
   const [departments, setDepartments] = useState([]);
   const [doctors, setDoctors] = useState([]);
-  const [loading, setLoading] = useState(true);
+const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [showForm, setShowForm] = useState(false);
+  const [editingDepartment, setEditingDepartment] = useState(null);
   const loadData = async () => {
     try {
       setLoading(true);
@@ -52,9 +54,9 @@ const Departments = () => {
           title="Departments"
           subtitle="Hospital departments and medical specialties"
         >
-          <Button 
+<Button 
             variant="primary" 
-            onClick={() => {/* TODO: Implement create department */}}
+            onClick={() => setShowForm(true)}
           >
             <ApperIcon name="Plus" className="w-4 h-4" />
             Create Department
@@ -75,8 +77,8 @@ const Departments = () => {
           subtitle="Hospital departments and medical specialties"
         >
           <Button 
-            variant="primary" 
-            onClick={() => {/* TODO: Implement create department */}}
+variant="primary" 
+            onClick={() => setShowForm(true)}
           >
             <ApperIcon name="Plus" className="w-4 h-4" />
             Create Department
@@ -101,8 +103,8 @@ const Departments = () => {
           subtitle="Hospital departments and medical specialties"
         >
           <Button 
-            variant="primary" 
-            onClick={() => {/* TODO: Implement create department */}}
+variant="primary" 
+            onClick={() => setShowForm(true)}
           >
             <ApperIcon name="Plus" className="w-4 h-4" />
             Create Department
@@ -127,8 +129,8 @@ const Departments = () => {
         subtitle="Hospital departments and medical specialties"
       >
         <Button 
-          variant="primary" 
-          onClick={() => {/* TODO: Implement create department */}}
+variant="primary" 
+          onClick={() => setShowForm(true)}
         >
           <ApperIcon name="Plus" className="w-4 h-4" />
           Create Department
@@ -212,8 +214,23 @@ const Departments = () => {
               </motion.div>
             );
           })}
-        </div>
+</div>
       </motion.div>
+      
+      {showForm && (
+        <DepartmentForm
+          department={editingDepartment}
+          onSuccess={() => {
+            setShowForm(false);
+            setEditingDepartment(null);
+            loadData();
+          }}
+          onCancel={() => {
+            setShowForm(false);
+            setEditingDepartment(null);
+          }}
+        />
+      )}
     </div>
   );
 };
