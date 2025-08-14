@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Header from "@/components/organisms/Header";
 import Card from "@/components/atoms/Card";
+import Button from "@/components/atoms/Button";
 import ApperIcon from "@/components/ApperIcon";
 import Loading from "@/components/ui/Loading";
 import Error from "@/components/ui/Error";
 import Empty from "@/components/ui/Empty";
 import { departmentService } from "@/services/api/departmentService";
 import { doctorService } from "@/services/api/doctorService";
-
 const Departments = () => {
   const [departments, setDepartments] = useState([]);
   const [doctors, setDoctors] = useState([]);
@@ -48,10 +48,18 @@ const Departments = () => {
   if (loading) {
     return (
       <div className="min-h-screen">
-        <Header 
+<Header 
           title="Departments"
           subtitle="Hospital departments and medical specialties"
-        />
+        >
+          <Button 
+            variant="primary" 
+            onClick={() => {/* TODO: Implement create department */}}
+          >
+            <ApperIcon name="Plus" className="w-4 h-4" />
+            Create Department
+          </Button>
+        </Header>
         <div className="p-6">
           <Loading type="cards" />
         </div>
@@ -62,10 +70,18 @@ const Departments = () => {
   if (error) {
     return (
       <div className="min-h-screen">
-        <Header 
+<Header 
           title="Departments"
           subtitle="Hospital departments and medical specialties"
-        />
+        >
+          <Button 
+            variant="primary" 
+            onClick={() => {/* TODO: Implement create department */}}
+          >
+            <ApperIcon name="Plus" className="w-4 h-4" />
+            Create Department
+          </Button>
+        </Header>
         <div className="p-6">
           <Error 
             title="Failed to load departments"
@@ -80,10 +96,18 @@ const Departments = () => {
   if (departments.length === 0) {
     return (
       <div className="min-h-screen">
-        <Header 
+<Header 
           title="Departments"
           subtitle="Hospital departments and medical specialties"
-        />
+        >
+          <Button 
+            variant="primary" 
+            onClick={() => {/* TODO: Implement create department */}}
+          >
+            <ApperIcon name="Plus" className="w-4 h-4" />
+            Create Department
+          </Button>
+        </Header>
         <div className="p-6">
           <Empty
             title="No departments found"
@@ -98,10 +122,18 @@ const Departments = () => {
 
   return (
     <div className="min-h-screen">
-      <Header 
+<Header 
         title="Departments"
         subtitle="Hospital departments and medical specialties"
-      />
+      >
+        <Button 
+          variant="primary" 
+          onClick={() => {/* TODO: Implement create department */}}
+        >
+          <ApperIcon name="Plus" className="w-4 h-4" />
+          Create Department
+        </Button>
+      </Header>
       
       <motion.div 
         className="p-6 space-y-6"
